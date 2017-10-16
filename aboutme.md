@@ -18,3 +18,4 @@ Tools:
 - ODOO (OpenERP)
 - QuickBooks
 - Idempiere
+- Photoshop
