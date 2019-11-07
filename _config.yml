@@ -23,8 +23,8 @@ description: Esta es la descripcion de la pagina
 
 # List of links in the navigation bar
 navbar-links:
-  About Me: "aboutme"
-  Projects: "projects"
+  About Me: "Sobre mi"
+  Projects: "proyectos"
   #Resources:
   #  - Beautiful Jekyll: "http://deanattali.com/beautiful-jekyll/"
   #  - Learn markdown: "http://www.markdowntutorial.com/"
@@ -59,7 +59,7 @@ author:
   name: Israel Ubeda Bravo
   email: "israel.ubedabravo@gmail.com"
   facebook: harshal.bhoir3  # eg. daattali
-  github: HarshalBhoir    # eg. daattali
+  github: israelubeda    # eg. daattali
   twitter: yourname   # eg. daattali
   reddit: yourname    # eg. daattali
   google-plus: +yourname   # eg. +DeanAttali or 109424658772469020925
@@ -102,6 +102,7 @@ share-links-active:
   facebook: true
   google: false
   linkedin: true
+  github: true
 
 # How to display the link to the website in the footer
 # Remove this if you don't want a link in the footer
