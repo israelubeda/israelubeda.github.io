@@ -6,8 +6,8 @@ title: Projects
 
 Following are the Projects I've worked on:
 
-- Webscraping NSE Website :
-- CSV Report Making using **PANDAS**
+- NARNIA:
+- REPORTE PYTHON3 **PANDAS**
 
 
 
