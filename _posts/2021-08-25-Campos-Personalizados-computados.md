@@ -2,7 +2,8 @@
 layout: post
 title: Tips Odoo 14.0
 subtitle: Computos de campos personalizados
-tags: [odoo, campos_personalizados , computados]
+image: /img/icono-odoo.png
+tags: [odoo, campos_personalizados , computados , ramdom]
 ---
 
 
@@ -15,7 +16,7 @@ Comenzamos creando los campos personalizados en Modelos, para el ejemplo se crea
 
 
 Luego creamos el campo computado, para este ejemplo x_gramosMensuales
-image: /img/gramosMensuales.JPG
+![Captura2]( /img/gramosMensuales.JPG)
 
 definimos las Propiedades del campo computado
 
