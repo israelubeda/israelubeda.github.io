@@ -2,7 +2,7 @@
 layout: post
 title: Tips Odoo 14.0
 subtitle: Computos de campos personalizados
-
+tags: [odoo, campos_personalizados , computados]
 ---
 
 
@@ -10,7 +10,8 @@ subtitle: Computos de campos personalizados
 
 
 Comenzamos creando los campos personalizados en Modelos, para el ejemplo se crea un campo llamado x_gramos de tipo Numero Flotante:
-image: /img/gramos.JPG
+
+![Captura1]( /img/gramos.JPG)
 
 
 Luego creamos el campo computado, para este ejemplo x_gramosMensuales
