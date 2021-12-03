@@ -21,6 +21,7 @@ Para empezar, necesitamos el nombre y el objeto de la vista que queremos heredar
 
 {: .box-note}
 **Nombre de la vista:** product.template.product.tree
+
 **Objeto:** product.template
 
 ![Captura1]( /img/odoo2.JPG)
@@ -30,10 +31,15 @@ Definimos la nueva vista de extensión desde el menú ( Configuración > Técnic
 
 {: .box-note}
 **Nombre de la vista:** Herencia vista lista de productos
+
 **Tipo de vista:** Árbol
+
 **Objeto:** product.template (el objeto de la vista base obtenido en el paso anterior)
+
 **Vista heredada:** product.template.product.tree (el nombre de la vista base obtenido en el paso anterior)
+
 **Ver modo heredado:** Vista de extensión
+
 **Estructura:** utilizamos la siguiente estructura para añadir la columna con el precio de venta al final de la lista:
 
 ~~~
