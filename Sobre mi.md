@@ -24,6 +24,7 @@ My name is Israel Ubeda. I have the following qualities:
 | Técnicas de reducción del estrés ante los cambios laborales y personales 2021 | Vgroup | 30/08/2021 | [Técnicas de reducción del estrés](cursos/Técnicas de reducción del estrés ante los cambios laborales y personales 2021.pdf) |
 | Introduccion a la Criptografia | Usach | 27/02/2021 | [Introduccion a la Criptografia](cursos/Introducci_n_a_la_Criptograf_a_Badge20210830-58-du0rnl.pdf) |
 | Odoo-Qweb generacion de informes profesionales completo | Udemy | 05/10/2022 | [Odoo-Qweb generacion de informes profesionales completo](cursos/Odoo-Qweb generacion de informes profesionales completos.pdf)|
+| Experto en Smart Contracts DApps Blockchain Solidity y BNB | Udemy | 05/10/2022 | [Experto en Smart Contracts DApps Blockchain Solidity y BNB](cursos/Experto en Smart Contracts DApps Blockchain Solidity y BNB.pdf)|
 
 
 Tools:
