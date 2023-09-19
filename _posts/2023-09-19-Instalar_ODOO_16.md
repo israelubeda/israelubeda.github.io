@@ -120,5 +120,52 @@ Guardar y cerrar
 sudo chown odoo:odoo /etc/odoo-server.conf
 ~~~
 
+**10.- Crear archivo Systemd para Odoo**
+
+~~~
+sudo nano /etc/systemd/system/odoo.service
+~~~
+
+Agrega las siguientes líneas de código al archivo:
+
+```
+[Unit]
+Description=Odoo 16.0 Service
+Requires=postgresql.service
+After=network.target postgresql.service
+ 
+[Service]
+Type=simple
+SyslogIdentifier=odoo
+PermissionsStartOnly=true
+User=odoo
+Group=odoo
+ExecStart=/opt/odoo/odoo-server/venv/bin/python3 /opt/odoo/odoo-server/odoo-bin -c /etc/odoo-server.conf
+StandardOutput=journal+console
+ 
+[Install]
+WantedBy=multi-user.target
 
 
+```
+Guarda el archivo y ciérralo. Reinicia para cargar el nuevo archivo
+
+~~~
+sudo systemctl daemon-reload
+~~~
+
+Inicia el servicio de Odoo y habilita el auto inicio con el sistema:
+
+~~~
+sudo systemctl enable --now odoo.service
+~~~
+
+Verifica el estatus del servicio:
+
+~~~
+sudo systemctl status odoo.service
+~~~
+
+ir al puerto 8069
+
+y listo...
