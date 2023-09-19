@@ -40,7 +40,85 @@ sudo adduser --system --group --home=/opt/odoo --shell=/bin/bash odoo
 
 ~~~
 sudo apt install postgresql -y
+
 sudo su - postgres -c "createuser -s odoo"
 ~~~
+
+**6.- Instalar Odoo 16**
+
+~~~
+cd /opt/odoo
+
+git clone https://github.com/odoo/odoo.git --depth 1 --branch 16.0 --single-branch odoo-server
+
+sudo chown -R odoo:odoo /opt/odoo/odoo-server
+
+~~~
+
+**7.- Instalar dependencias de Python**
+
+~~~
+cd /opt/odoo/odoo-server
+~~~
+
+Creando el entorno virtual:
+~~~
+python3 -m venv venv
+~~~
+
+Activa el entorno virtual:
+
+~~~
+source venv/bin/activate
+~~~
+
+Instalando dependencias
+
+~~~
+pip3 install wheel
+
+pip3 install -r requirements.txt
+~~~
+
+Desactiva el entorno virtual:
+
+~~~
+deactivate
+~~~
+
+**8.- creando carpeta log de Odoo**
+
+~~~
+sudo mkdir /var/log/odoo
+
+sudo chown odoo:odoo /var/log/odoo
+
+sudo chmod 777 /var/log/odoo
+
+~~~
+
+**9.- Crear archivo de configuración de Odoo**
+
+~~~
+sudo nano /etc/odoo-server.conf
+~~~
+
+Contenido de odoo-server.conf , recuerda cambiar una contraseña del administrador:
+
+```
+[options]
+admin_passwd = pass$123
+db_user = odoo
+addons_path = /opt/odoo/odoo-server/addons
+logfile = /var/log/odoo/odoo-server.log
+log_level  = debug
+
+```
+Guardar y cerrar
+
+~~~
+sudo chown odoo:odoo /etc/odoo-server.conf
+~~~
+
 
 
