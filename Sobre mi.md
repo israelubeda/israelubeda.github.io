@@ -30,6 +30,8 @@ My name is Israel Ubeda. I have the following qualities:
 Tools:
 
 - Python
+- Lua
+- JavaScript
 - Linux
 - ODOO (OpenERP)
 - Excel
