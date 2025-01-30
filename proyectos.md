@@ -8,6 +8,7 @@ Following are the Projects I've worked on:
 
 - NARNIA:
 - REPORTE PYTHON3 **PANDAS**
+- Pronto pondre mis repositorios aqui.....
 
 
 
