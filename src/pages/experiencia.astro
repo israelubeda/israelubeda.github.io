@@ -1,0 +1,152 @@
+---
+import { technologies } from '@/data/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Experiencia y tecnologías"
+  description="Áreas técnicas de Israel Ubeda: Python, automatización, Odoo, APIs, datos, Docker e inteligencia artificial local."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Experiencia y tecnologías</p><h1>
+        Un stack para conectar procesos, datos y decisiones.
+      </h1><p>
+        Áreas de trabajo declaradas y respaldadas por contenido o proyectos públicos. Sin años de
+        experiencia, cargos ni resultados comerciales inventados.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell capability-list">
+      <article class="reveal">
+        <span>01</span><div>
+          <p class="kicker">Software y automatización</p><h2>
+            Python como herramienta de construcción.
+          </h2><p>
+            Scripts, aplicaciones Flask, empaquetado, validaciones e integración de procesos
+            repetitivos.
+          </p><ul><li>Python</li><li>FastAPI</li><li>APIs</li><li>Procesamiento de datos</li></ul>
+        </div>
+      </article>
+      <article class="reveal">
+        <span>02</span><div>
+          <p class="kicker">Sistemas empresariales</p><h2>Odoo y contexto operacional.</h2><p>
+            Contenido técnico sobre campos, vistas, instalación y personalización de Odoo, junto con
+            interés en automatizaciones ERP.
+          </p><ul><li>Odoo ERP</li><li>PostgreSQL</li><li>Linux</li><li>Docker</li></ul>
+        </div>
+      </article>
+      <article class="reveal">
+        <span>03</span><div>
+          <p class="kicker">Inteligencia artificial</p><h2>
+            Modelos y agentes cerca de los datos.
+          </h2><p>
+            Exploración de LLM locales, Ollama y flujos con agentes, con énfasis en entender su
+            operación y límites.
+          </p><ul>
+            <li>Ollama</li><li>LLM locales</li><li>Agentes</li><li>Integración de modelos</li>
+          </ul>
+        </div>
+      </article>
+      <article class="reveal">
+        <span>04</span><div>
+          <p class="kicker">Herramientas chilenas</p><h2>
+            Reglas locales convertidas en software.
+          </h2><p>
+            Proyectos públicos para DTE, validación de RUT, calendarios de días inhábiles y cálculo
+            de honorarios.
+          </p><ul>
+            <li>SII</li><li>DTE XML</li><li>Módulo 11</li><li>Automatización tributaria</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="section section--bordered">
+    <div class="shell">
+      <p class="kicker">Mapa tecnológico</p><div class="technology-map">
+        {
+          technologies.map((tech, index) => (
+            <span>
+              <i>{String(index + 1).padStart(2, '0')}</i>
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .capability-list {
+    border-top: 1px solid var(--line);
+  }
+  .capability-list article {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .capability-list article > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+  .capability-list h2 {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+  }
+  .capability-list p:not(.kicker) {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+  .capability-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .capability-list li {
+    padding: 0.35rem 0.65rem;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+  }
+  .technology-map {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 2rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .technology-map span {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .technology-map i {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-style: normal;
+  }
+  @media (min-width: 720px) {
+    .capability-list article {
+      grid-template-columns: 5rem 1fr;
+    }
+    .technology-map {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+</style>

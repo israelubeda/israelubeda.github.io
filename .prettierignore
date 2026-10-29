@@ -1,0 +1,19 @@
+dist
+.astro
+node_modules
+css
+js
+_includes
+_layouts
+_plugins
+_posts
+src/content/blog
+cursos
+public/cursos
+CHANGELOG.md
+_config.yml
+.vscode
+404.html
+index.html
+proyectos.md
+Sobre mi.md

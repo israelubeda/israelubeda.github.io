@@ -1,0 +1,31 @@
+---
+import type { BlogEntry } from '@/lib/content';
+import { formatDate, postCategories, postDate, postTitle, postUrl } from '@/lib/content';
+
+interface Props {
+  post: BlogEntry;
+  index?: number;
+}
+const { post, index = 0 } = Astro.props;
+const categories = postCategories(post);
+---
+
+<article
+  class="blog-card reveal"
+  data-search-item
+  data-search-text={`${postTitle(post)} ${post.data.subtitle ?? ''} ${post.data.tags.join(' ')} ${categories.join(' ')}`.toLowerCase()}
+>
+  <span class="blog-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+  <div class="blog-meta">
+    <time datetime={postDate(post).toISOString()}>{formatDate(postDate(post))}</time>
+    <span>{categories[0]}</span>
+  </div>
+  <h3><a href={postUrl(post)}>{postTitle(post)}</a></h3>
+  <p>
+    {post.data.subtitle ?? post.data.description ?? 'Artículo del archivo técnico de Israel Ubeda.'}
+  </p>
+  <div class="blog-tags">
+    {post.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}
+  </div>
+  <a class="arrow-link" href={postUrl(post)} aria-label={`Leer ${postTitle(post)}`}>→</a>
+</article>

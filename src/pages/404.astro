@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada" description="La página solicitada no existe." noindex>
+  <section class="not-found">
+    <div class="shell">
+      <span aria-hidden="true">404</span><p class="kicker">Señal perdida</p><h1>
+        Esta ruta no lleva a ninguna parte.
+      </h1><p>Puede que el enlace haya cambiado o que la página nunca haya existido.</p><div>
+        <a class="button" href="/">Volver al inicio</a><a
+          class="button button--secondary"
+          href="/proyectos/">Ver proyectos</a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .not-found {
+    position: relative;
+    display: grid;
+    min-height: 75vh;
+    place-items: center;
+    overflow: hidden;
+    padding-block: 5rem;
+  }
+  .not-found > .shell > span {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--surface-strong);
+    font-size: min(45vw, 32rem);
+    font-weight: 900;
+    letter-spacing: -0.1em;
+  }
+  .not-found h1 {
+    max-width: 800px;
+    margin: 0;
+    font-size: clamp(3rem, 9vw, 7rem);
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+  .not-found p:not(.kicker) {
+    color: var(--muted);
+    font-size: 1.1rem;
+  }
+  .not-found div div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+</style>

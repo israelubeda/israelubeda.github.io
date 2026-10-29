@@ -1,0 +1,101 @@
+---
+import { visibleProjects } from '@/data/projects';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const cases = visibleProjects.filter((project) => project.featured);
+---
+
+<BaseLayout
+  title="Estudios de caso"
+  description="Lecturas técnicas de proyectos públicos de Israel Ubeda, sin métricas ni resultados comerciales no verificables."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Estudios de caso</p><h1>Problema, enfoque y límites visibles.</h1><p>
+        Estos estudios describen lo que puede verificarse en repositorios públicos. No atribuyen
+        clientes, adopción ni impacto comercial.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell case-list">
+      {
+        cases.map((project, index) => (
+          <article class="case-card reveal">
+            <>
+              <span class="case-index">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <>
+                  <p class="kicker">{project.eyebrow}</p>
+                  <h2>{project.name}</h2>
+                  <p>{project.longDescription}</p>
+                  <div class="case-facts">
+                    {project.facts.map((fact) => (
+                      <span>{fact}</span>
+                    ))}
+                  </div>
+                  <a class="button button--secondary" href={`/proyectos/${project.slug}/`}>
+                    Leer ficha completa →
+                  </a>
+                </>
+              </div>
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                width="1200"
+                height="600"
+                loading="lazy"
+              />
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .case-list {
+    display: grid;
+    gap: 2rem;
+  }
+  .case-card {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .case-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+  .case-card h2 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+  }
+  .case-card p:not(.kicker) {
+    color: var(--muted);
+  }
+  .case-card img {
+    width: 100%;
+    border: 1px solid var(--line);
+  }
+  .case-facts {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .case-facts span {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+  @media (min-width: 900px) {
+    .case-card {
+      grid-template-columns: 2rem 1fr 0.9fr;
+      align-items: center;
+    }
+  }
+</style>

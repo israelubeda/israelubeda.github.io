@@ -1,0 +1,154 @@
+---
+import { visibleProjects } from '@/data/projects';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return visibleProjects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+---
+
+<BaseLayout title={project.name} description={project.description} image={project.image}>
+  <article>
+    <header class="project-hero">
+      <div class="shell">
+        <a class="back-link" href="/proyectos/">← Todos los proyectos</a><p class="kicker">
+          {project.eyebrow}
+        </p><h1>{project.name}</h1><p>{project.description}</p>{
+          project.attribution && (
+            <p class="attribution">{project.attribution}. No se presenta como autoría propia.</p>
+          )
+        }<div class="project-actions">
+          {
+            project.repository && (
+              <a class="button" href={project.repository} target="_blank" rel="noopener noreferrer">
+                Ver repositorio <span>↗</span>
+              </a>
+            )
+          }{
+            project.sourceRepository && (
+              <a
+                class="button button--secondary"
+                href={project.sourceRepository}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver proyecto original <span>↗</span>
+              </a>
+            )
+          }<span class="status"><i></i>{project.status}</span>
+        </div>
+      </div>
+    </header>
+    <div class="shell project-visual reveal">
+      <img src={project.image} alt={project.imageAlt} width="1200" height="600" />
+    </div>
+    <section class="section">
+      <div class="shell detail-grid">
+        <div><p class="kicker">Contexto</p><h2>Qué está verificado.</h2></div><div>
+          <p class="lead">{project.longDescription}</p><ul class="fact-list">
+            {project.facts.map((fact) => <li>{fact}</li>)}
+          </ul><h3>Tecnologías identificadas</h3><ul class="tag-list">
+            {project.technologies.map((technology) => <li>{technology}</li>)}
+          </ul><p class="verification">
+            Verificado con datos públicos de GitHub el <time datetime={project.verifiedAt}
+              >{project.verifiedAt}</time
+            >. Esta ficha no afirma clientes, métricas ni resultados comerciales.
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+<style>
+  .project-hero {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 3rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  .project-hero h1 {
+    max-width: 950px;
+    margin: 0;
+    font-size: clamp(3.4rem, 10vw, 8rem);
+    letter-spacing: -0.08em;
+    line-height: 0.84;
+  }
+  .project-hero > .shell > p:not(.kicker) {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 1.25rem;
+  }
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.4rem;
+    margin-top: 2rem;
+  }
+  .project-visual {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .project-visual img {
+    width: 100%;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+  }
+  .detail-grid {
+    display: grid;
+    gap: 3rem;
+  }
+  .detail-grid h2 {
+    margin: 0;
+    font-size: clamp(2.3rem, 5vw, 4.6rem);
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+  }
+  .lead {
+    color: var(--muted);
+    font-size: 1.2rem;
+  }
+  .fact-list {
+    padding: 0;
+    margin: 2rem 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+  .fact-list li {
+    padding: 1rem 0 1rem 1.8rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .fact-list li::before {
+    position: absolute;
+    left: 0;
+    color: var(--signal);
+    content: '✓';
+  }
+  .verification {
+    margin-top: 2.5rem;
+    padding: 1rem;
+    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  .attribution {
+    padding: 0.8rem 1rem;
+    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    font-size: 0.86rem !important;
+  }
+  @media (min-width: 800px) {
+    .detail-grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+  }
+</style>

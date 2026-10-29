@@ -7,3 +7,14 @@ _site
 .DS_Store
 Thumbs.db
 ehthumbs.db
+
+# Astro / Node
+node_modules/
+dist/
+.astro/
+playwright-report/
+test-results/
+artifacts/
+.env
+.env.*
+!.env.example

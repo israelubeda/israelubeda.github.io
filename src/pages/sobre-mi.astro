@@ -1,0 +1,134 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Sobre mí"
+  description="Conoce el enfoque profesional, intereses técnicos y formación pública de Israel Ubeda."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Sobre mí</p><h1>Curiosidad técnica con los pies en la operación.</h1><p>
+        Desarrollador en Santiago, Chile, con trabajo público en Python, Odoo, herramientas
+        tributarias e iniciativas de aprendizaje tecnológico.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell about-grid">
+      <div class="portrait reveal">
+        <img src="/img/ambar.jpeg" alt="Fotografía de Israel Ubeda" width="460" height="460" /><span
+          >Desde 2018 en GitHub</span
+        >
+      </div>
+      <div class="about-copy reveal">
+        <p class="kicker">Perfil</p>
+        <h2>Construyo, documento y aprendo en público.</h2>
+        <p>
+          Mi trabajo se mueve entre el desarrollo de software y la mejora de procesos. Me interesan
+          especialmente Python, la automatización, Odoo ERP, la integración de APIs y las
+          herramientas para el contexto tributario chileno.
+        </p>
+        <p>
+          También exploro inteligencia artificial, agentes y modelos locales con Ollama. Este
+          portafolio distingue deliberadamente entre proyectos propios verificables, experimentos y
+          repositorios de terceros.
+        </p>
+        <blockquote>“Las batallas de hoy, forjan el mañana”.</blockquote>
+        <a class="button button--secondary" href="/experiencia/">Ver tecnologías y enfoque →</a>
+      </div>
+    </div>
+  </section>
+  <section class="section section--bordered">
+    <div class="shell principles">
+      <article class="reveal">
+        <span>01</span><h3>Practicidad</h3><p>
+          Partir del problema y elegir la herramienta que lo resuelve con claridad.
+        </p>
+      </article>
+      <article class="reveal">
+        <span>02</span><h3>Transparencia</h3><p>
+          Separar lo comprobado, lo experimental y lo que aún está en construcción.
+        </p>
+      </article>
+      <article class="reveal">
+        <span>03</span><h3>Aprendizaje</h3><p>
+          Registrar procesos y compartir lo aprendido para poder iterar mejor.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .about-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  .portrait {
+    position: relative;
+    max-width: 480px;
+    padding: 1rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .portrait img {
+    width: 100%;
+    filter: saturate(0.8) contrast(1.04);
+  }
+  .portrait span {
+    display: block;
+    padding: 0.8rem 0.2rem 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+  }
+  .about-copy h2 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+  }
+  .about-copy > p {
+    color: var(--muted);
+    font-size: 1.12rem;
+  }
+  blockquote {
+    margin: 2.5rem 0;
+    padding: 1.4rem 0 1.4rem 1.5rem;
+    border-left: 3px solid var(--accent);
+    font-size: 1.4rem;
+    font-weight: 650;
+  }
+  .principles {
+    display: grid;
+    gap: 1rem;
+  }
+  .principles article {
+    padding: 2rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .principles span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+  .principles h3 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.5rem;
+  }
+  .principles p {
+    margin: 0;
+    color: var(--muted);
+  }
+  @media (min-width: 800px) {
+    .about-grid {
+      grid-template-columns: 0.75fr 1.25fr;
+    }
+    .principles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

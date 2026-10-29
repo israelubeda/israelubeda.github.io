@@ -1,0 +1,58 @@
+---
+import { navigation } from '@/data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label="Israel Ubeda, inicio">
+      <span class="brand-mark" aria-hidden="true">IU</span>
+      <span class="brand-copy"
+        ><strong>Israel Ubeda</strong><small>Software · Automatización · IA</small></span
+      >
+    </a>
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      {
+        navigation.map((item) => (
+          <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="header-actions">
+      <ThemeToggle />
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        <span></span><span></span><span></span><span class="sr-only">Abrir menú</span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-menu" aria-label="Navegación móvil" data-mobile-menu hidden>
+    {
+      navigation.map((item, index) => (
+        <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    if (menu) menu.hidden = open;
+  });
+</script>

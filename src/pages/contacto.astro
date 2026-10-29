@@ -1,0 +1,94 @@
+---
+import { site } from '@/data/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Contacta a Israel Ubeda para conversar sobre software, automatización, Odoo, APIs e inteligencia artificial."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Contacto</p><h1>
+        Conversemos sobre el problema antes que sobre la herramienta.
+      </h1><p>
+        Si tienes una idea, un proceso repetitivo o sistemas que necesitan conectarse, puedes
+        escribirme directamente.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell contact-grid">
+      <div class="contact-main reveal">
+        <p class="kicker">Canal directo</p><a class="email-link" href={`mailto:${site.email}`}
+          >{site.email}<span>↗</span></a
+        ><p>No hay formulario ni seguimiento de terceros: tu cliente de correo es suficiente.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href={site.github} target="_blank" rel="me noopener noreferrer"
+          ><span>GitHub</span><small>Proyectos y código público</small><b>↗</b></a
+        ><a href={site.x} target="_blank" rel="me noopener noreferrer"
+          ><span>X / Twitter</span><small>@israel_ubeda</small><b>↗</b></a
+        ><div><span>Ubicación</span><small>{site.location}</small></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 4rem;
+  }
+  .contact-main {
+    padding: clamp(1.5rem, 5vw, 4rem);
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .email-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow-wrap: anywhere;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--text);
+    font-size: clamp(1.4rem, 4vw, 3rem);
+    font-weight: 720;
+    letter-spacing: -0.045em;
+  }
+  .email-link span {
+    color: var(--accent);
+  }
+  .contact-main > p:last-child {
+    color: var(--muted);
+  }
+  .contact-links {
+    border-top: 1px solid var(--line);
+  }
+  .contact-links > * {
+    position: relative;
+    display: grid;
+    padding: 1.25rem 2.5rem 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-links span {
+    font-weight: 700;
+  }
+  .contact-links small {
+    color: var(--muted);
+  }
+  .contact-links b {
+    position: absolute;
+    right: 0;
+    top: 1.4rem;
+    color: var(--accent);
+  }
+  .contact-links a:hover span {
+    color: var(--accent);
+  }
+  @media (min-width: 850px) {
+    .contact-grid {
+      grid-template-columns: 1.3fr 0.7fr;
+    }
+  }
+</style>

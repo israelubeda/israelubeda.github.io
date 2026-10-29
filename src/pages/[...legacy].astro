@@ -1,0 +1,200 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { formatDate, postCategories, postDate, postSlug, postTitle } from '@/lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { legacy: postSlug(post) }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = postDate(post);
+const categories = postCategories(post);
+const description =
+  post.data.subtitle ??
+  post.data.description ??
+  `Artículo técnico de Israel Ubeda: ${postTitle(post)}.`;
+const image = post.data.image ?? post.data.bigimg ?? '/img/avatar-icon.png';
+---
+
+<BaseLayout
+  title={postTitle(post)}
+  description={description}
+  image={image}
+  type="article"
+  publishedTime={date.toISOString()}
+>
+  <article class="article">
+    <header class="article-header">
+      <div class="shell article-shell">
+        <a class="back-link" href="/blog/">← Volver al blog</a><div class="article-meta">
+          <time datetime={date.toISOString()}>{formatDate(date)}</time><span
+            >{categories.join(' · ')}</span
+          >
+        </div><h1>{postTitle(post)}</h1>{post.data.subtitle && <p>{post.data.subtitle}</p>}<div
+          class="blog-tags"
+        >
+          {post.data.tags.map((tag) => <span>#{tag}</span>)}
+        </div>
+      </div>
+    </header>
+    {
+      (post.data.image || post.data.bigimg) && (
+        <div class="shell article-image">
+          <img
+            src={image}
+            alt={`Imagen principal de ${postTitle(post)}`}
+            width="1200"
+            height="630"
+          />
+        </div>
+      )
+    }
+    <div class="shell article-grid">
+      <aside>
+        <p class="kicker">Archivo</p><p>
+          Contenido migrado conservando su fecha y permalink original.
+        </p><a href="/blog/">Más artículos →</a>
+      </aside><div class="prose"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
+<style>
+  .article-header {
+    padding-block: clamp(4rem, 9vw, 8rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .article-shell {
+    max-width: 980px;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 3rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+  }
+  .article-header h1 {
+    max-width: 950px;
+    margin: 0;
+    font-size: clamp(3rem, 9vw, 7rem);
+    letter-spacing: -0.075em;
+    line-height: 0.88;
+  }
+  .article-header p {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 1.25rem;
+  }
+  .article-image {
+    margin-top: 3rem;
+  }
+  .article-image img {
+    width: 100%;
+    max-height: 580px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .article-grid {
+    display: grid;
+    gap: 3rem;
+    padding-block: clamp(4rem, 8vw, 8rem);
+  }
+  .article-grid aside {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .article-grid aside a {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .prose {
+    min-width: 0;
+    max-width: 780px;
+    font-size: 1.05rem;
+  }
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin: 2.5em 0 0.7em;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+  }
+  .prose :global(h2) {
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+  }
+  .prose :global(h3) {
+    font-size: 1.45rem;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  }
+  .prose :global(a) {
+    color: var(--signal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose :global(img) {
+    width: auto;
+    max-height: 650px;
+    margin: 2rem auto;
+    border: 1px solid var(--line);
+  }
+  .prose :global(pre) {
+    overflow-x: auto;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    background: #111317;
+    color: #edf0e9;
+    font-size: 0.83rem;
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+  }
+  .prose :global(:not(pre) > code) {
+    padding: 0.12rem 0.3rem;
+    background: var(--surface);
+    color: var(--accent);
+  }
+  .prose :global(table) {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 0.7rem;
+    border: 1px solid var(--line);
+    text-align: left;
+  }
+  .prose :global(blockquote) {
+    margin: 2rem 0;
+    padding-left: 1.3rem;
+    border-left: 3px solid var(--accent);
+    color: var(--muted);
+  }
+  @media (min-width: 900px) {
+    .article-grid {
+      grid-template-columns: 180px 1fr;
+    }
+    .article-grid aside {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+  }
+</style>

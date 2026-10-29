@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from '@/components/BlogCard.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { postCategories, postDate } from '@/lib/content';
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => postDate(b).valueOf() - postDate(a).valueOf(),
+);
+const categories = [...new Set(posts.flatMap(postCategories))].sort();
+---
+
+<BaseLayout
+  title="Blog técnico"
+  description="Archivo técnico de Israel Ubeda sobre Python, Odoo, inteligencia artificial, Linux, automatización y proyectos personales."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Blog técnico</p><h1>Notas, tutoriales y archivo de aprendizaje.</h1><p>
+        Contenido histórico migrado sin alterar sus fechas ni rutas originales. Algunos artículos
+        antiguos se conservan como archivo y pueden reflejar versiones desactualizadas.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell">
+      <div class="search-panel">
+        <label for="blog-search">Buscar en el blog</label><div>
+          <input
+            id="blog-search"
+            type="search"
+            placeholder="Python, Odoo, LLM…"
+            autocomplete="off"
+            data-search
+          /><span aria-hidden="true">⌕</span>
+        </div><div class="category-row" aria-label="Categorías disponibles">
+          {
+            categories.map((category) => (
+              <button type="button" data-category={category}>
+                {category}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <p class="search-status" aria-live="polite" data-search-status>{posts.length} artículos</p>
+      <div class="blog-list" data-blog-list>
+        {posts.map((post, index) => <BlogCard post={post} index={index} />)}
+      </div>
+      <p class="empty" hidden data-empty>No hay artículos que coincidan con la búsqueda.</p>
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const search = document.querySelector<HTMLInputElement>('[data-search]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-search-item]')];
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-category]');
+  let category = '';
+  const apply = () => {
+    const query = search?.value.trim().toLowerCase() ?? '';
+    let visible = 0;
+    items.forEach((item) => {
+      const text = item.dataset.searchText ?? '';
+      const match =
+        (!query || text.includes(query)) && (!category || text.includes(category.toLowerCase()));
+      item.hidden = !match;
+      if (match) visible += 1;
+    });
+    if (status) status.textContent = `${visible} ${visible === 1 ? 'artículo' : 'artículos'}`;
+    if (empty) empty.hidden = visible !== 0;
+  };
+  search?.addEventListener('input', apply);
+  buttons.forEach((button) =>
+    button.addEventListener('click', () => {
+      const selected = button.dataset.category ?? '';
+      category = category === selected ? '' : selected;
+      buttons.forEach((item) =>
+        item.classList.toggle('active', item.dataset.category === category),
+      );
+      apply();
+    }),
+  );
+</script>
+<style>
+  .search-panel {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .search-panel label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .search-panel > div:first-of-type {
+    display: flex;
+    border-bottom: 1px solid var(--text);
+  }
+  .search-panel input {
+    width: 100%;
+    padding: 0.75rem 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 1.1rem;
+  }
+  .search-panel input::placeholder {
+    color: var(--muted);
+  }
+  .search-panel div span {
+    font-size: 1.5rem;
+  }
+  .category-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .category-row button {
+    cursor: pointer;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+  .category-row button.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .search-status {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+  .empty {
+    padding: 3rem;
+    text-align: center;
+    color: var(--muted);
+  }
+</style>

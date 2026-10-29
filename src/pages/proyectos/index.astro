@@ -1,0 +1,96 @@
+---
+import ProjectCard from '@/components/ProjectCard.astro';
+import { visibleProjects } from '@/data/projects';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const categories = [...new Set(visibleProjects.flatMap((project) => project.categories))].sort();
+---
+
+<BaseLayout
+  title="Proyectos"
+  description="Catálogo verificado de proyectos públicos propios de Israel Ubeda sobre Python, automatización, SII y software."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <p class="kicker">Catálogo de proyectos</p><h1>
+        Software público, seleccionado con criterio.
+      </h1><p>
+        Este catálogo no importa automáticamente todos los repositorios. Cada ficha fue elegida,
+        revisada y separada de forks o proyectos sin evidencia pública.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="shell">
+      <div class="filters" role="group" aria-label="Filtrar proyectos">
+        <button class="active" type="button" data-filter="all">Todos</button>{
+          categories.map((category) => (
+            <button type="button" data-filter={category}>
+              {category}
+            </button>
+          ))
+        }
+      </div>
+      <p class="result-count" aria-live="polite" data-result-count>
+        {visibleProjects.length} proyectos verificados
+      </p>
+      <div class="project-grid">
+        {
+          visibleProjects.map((project) => (
+            <div data-project-card data-categories={project.categories.join('|')}>
+              <ProjectCard project={project} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-project-card]');
+  const count = document.querySelector<HTMLElement>('[data-result-count]');
+  buttons.forEach((button) =>
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter ?? 'all';
+      buttons.forEach((item) => item.classList.toggle('active', item === button));
+      let visible = 0;
+      cards.forEach((card) => {
+        const match =
+          filter === 'all' || (card.dataset.categories ?? '').split('|').includes(filter);
+        card.hidden = !match;
+        if (match) visible += 1;
+      });
+      if (count)
+        count.textContent = `${visible} ${visible === 1 ? 'proyecto verificado' : 'proyectos verificados'}`;
+    }),
+  );
+</script>
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .filters button {
+    cursor: pointer;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+  .filters button:hover,
+  .filters button.active {
+    border-color: var(--text);
+    background: var(--text);
+    color: var(--bg);
+  }
+  .result-count {
+    margin: 0 0 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>

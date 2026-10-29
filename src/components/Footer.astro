@@ -1,0 +1,22 @@
+---
+import { site } from '@/data/site';
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <p class="kicker">Construir con intención</p>
+      <p class="footer-statement">Software útil para problemas reales.</p>
+    </div>
+    <div class="footer-links" aria-label="Enlaces de contacto">
+      <a href={site.github} rel="me noopener noreferrer" target="_blank">GitHub <span>↗</span></a>
+      <a href={`mailto:${site.email}`}>Correo <span>↗</span></a>
+      <a href="/feed.xml">RSS <span>↗</span></a>
+    </div>
+  </div>
+  <div class="shell footer-meta">
+    <span>© {new Date().getFullYear()} Israel Ubeda</span>
+    <span>{site.location}</span>
+    <span>Hecho con Astro · Código abierto</span>
+  </div>
+</footer>
